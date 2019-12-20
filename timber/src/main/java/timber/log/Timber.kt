@@ -190,6 +190,11 @@ class Timber private constructor() {
      * @param t Accompanying exceptions. May be `null`.
      */
     protected abstract fun log(priority: Int, tag: String?, message: String, t: Throwable?)
+
+    /**
+     * Log event to its destination.
+     */
+    abstract fun logEvent(event: Event)
   }
 
   /** A [Tree] for debug builds. Automatically infers the tag from the calling class. */
@@ -262,6 +267,10 @@ class Timber private constructor() {
         } while (i < newline)
         i++
       }
+    }
+
+    override fun logEvent(event: Event) {
+      Log.println(Log.DEBUG, tag, "Event: ${event.toString()}")
     }
 
     companion object {
@@ -376,6 +385,11 @@ class Timber private constructor() {
     /** Log at `priority` an exception. */
     @JvmStatic override fun log(priority: Int, t: Throwable?) {
       treeArray.forEach { it.log(priority, t) }
+    }
+
+    @JvmStatic
+    override fun logEvent(event: Event) {
+      treeArray.forEach { it.logEvent(event) }
     }
 
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {

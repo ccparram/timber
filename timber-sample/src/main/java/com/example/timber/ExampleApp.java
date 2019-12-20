@@ -3,6 +3,10 @@ package com.example.timber;
 import android.app.Application;
 import android.support.annotation.NonNull;
 import android.util.Log;
+
+import org.jetbrains.annotations.NotNull;
+
+import timber.log.Event;
 import timber.log.Timber;
 
 import static timber.log.Timber.DebugTree;
@@ -34,6 +38,11 @@ public class ExampleApp extends Application {
           FakeCrashLibrary.logWarning(t);
         }
       }
+    }
+
+    @Override
+    public void logEvent(@NotNull Event event) {
+      FakeCrashLibrary.logEvent();
     }
   }
 }

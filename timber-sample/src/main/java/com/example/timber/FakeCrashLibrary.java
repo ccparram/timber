@@ -14,6 +14,10 @@ public final class FakeCrashLibrary {
     // TODO report non-fatal error.
   }
 
+  public static void logEvent() {
+    // TODO report non-fatal error.
+  }
+
   private FakeCrashLibrary() {
     throw new AssertionError("No instances.");
   }
